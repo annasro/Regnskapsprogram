@@ -36,7 +36,6 @@ else:
 '''
 e_nummer = 1
 k_nummer = 1
-
 list = os.listdir('./faktura/') # dir is your directory path
 fakturanummer = len(list) + 1
 
@@ -44,33 +43,31 @@ filename_csv_b = 'data_egenpersonsforetak.csv'
 filename_csv_e = 'data_elever.csv'
 filename_csv_k = 'data_kunder.csv'
 filename_excel = 'info.xlsx'
+
 b_navn, b_adresse, b_postnummer, b_epost, b_telefon, b_organisasjonsnummer, b_kontonummer = bedrift_info(filename_csv_b, filename_excel)
-#e_navn, e_epost, e_telefon = elev_info(filename_csv_e, filename_excel,elevnummer)
 k_navn,k_adresse,k_postnummer, k_epost = kunde_info(filename_csv_k, filename_excel,k_nummer)
+#e_navn, e_epost, e_telefon = elev_info(filename_csv_e, filename_excel,elevnummer)
+
+#datoer
+dato = datetime.datetime.now()
+fakturadato =  str(dato.day) + "." + str(dato.month) + "." + str(dato.year)
+leveringsdato = fakturadato
+dato_forfall = dato + datetime.timedelta(days=14)
+forfallsdato  = str(dato_forfall.day) + "." + str(dato_forfall.month) + "." + str(dato_forfall.year)
 
 
 #funksjon som lager regningen
 def create_invoice():
     i = 2
     #verdier fra xcel ark
-    fakturadato_    = sheet.cell(row = i, column = 6).value
-    forfallsdato_   = sheet.cell(row = i, column = 7).value
-    leveringsdato_  = sheet.cell(row = i, column = 8).value
-    kommentar       = sheet.cell(row = i, column = 9).value
-    no_elever       = sheet.cell(row = 4, column = 2).value
-
-    #formatering
-    fakturadato = fakturadato_.strftime('%d.%m.%Y')
-    forfallsdato = forfallsdato_.strftime('%d.%m.%Y')
-    leveringsdato = leveringsdato_.strftime('%d.%m.%Y')
+    #fakturadato_    = sheet.cell(row = i, column = 6).value
+    #forfallsdato_   = sheet.cell(row = i, column = 7).value
+    #leveringsdato_  = sheet.cell(row = i, column = 8).value
+    kommentar        = sheet.cell(row = i, column = 9).value
+    no_elever        = sheet.cell(row = 4, column = 2).value
 
     #lage pdf
-    now = datetime.datetime.now()
-    currentDate =  str(now.day) + "-" + str(now.month) + "-" + str(now.year)
-    #fakutradato = now.day + now.month + now.year
-    #fakturadato = now.day + 14 + now.month + now.year
-    #leveringsdato = fakturadato
-    c = canvas.Canvas('./faktura/'+'faktura_' + str(fakturanummer)+"_"+ currentDate + '.pdf')
+    c = canvas.Canvas('./faktura/'+'faktura_' + str(fakturanummer)+"_"+ fakturadato + '.pdf')
 
     #sidestørrelse
     c.setPageSize(A4)
@@ -122,8 +119,10 @@ def create_invoice():
     c.drawString(h1,y, str(fakturadato))
     y -= margin*.4
     c.drawString(h,y,'Forfallsdato: ')
+    c.setFont('Helvetica-Bold', 10)
     c.drawString(h1,y, str(forfallsdato))
     y -= margin*.4
+    c.setFont('Helvetica', 10)
     c.drawString(h,y,'Leveringsdato: ')
     c.drawString(h1,y, str(leveringsdato))
     y -= margin
@@ -137,7 +136,7 @@ def create_invoice():
     y -= margin*.4
     c.drawString(v,y, str(k_postnummer))
     y -= margin*2
-    y = height -400
+    y = height -350
 
 
     #midtdel
@@ -194,8 +193,9 @@ def create_invoice():
     c.setFont('Times-Roman', 10)
     c.drawString(midt,y, str(totalt))
     y -= margin*1
-    c.setFont('Helvetica', 10)
+    c.setFont('Helvetica-Bold', 10)
     c.drawString(h1,y, str(forfallsdato))
+    c.setFont('Helvetica', 10)
     c.drawString(v,y,'Kundenr.: ')
     c.drawString(v1,y, str(k_nummer))
     y -= margin*0.4

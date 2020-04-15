@@ -1,62 +1,3 @@
-#library to import the excel file
-from openpyxl import load_workbook
-#libraries to create the pdf file and add text to it
-from reportlab.pdfgen import canvas
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.pdfmetrics import stringWidth
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.pagesizes import A4
-#library to get logo related information
-from PIL import Image
-import datetime
-import os
-import pandas
-from info import *
-import sys
-
-
-#import excel file
-wb = load_workbook("faktura_mal.xlsx", data_only = True)
-#åpne riktig ark
-sheet = wb['faktura']
-
-#sidestørrelse A4
-width, height = A4
-margin = 40
-pdfmetrics.registerFont(TTFont('Arial','Arial.ttf'))
-
-'''
-if len(sys.argv) == 1:
-    print('Skriv inn et filnavn')
-    filename = raw_input("Skriv inn filnavn")
-else:
-    filename = sys.argv[1].csv
-    e_ummer = sys.argv[2]
-    k_nummer = sys.argv[3]
-'''
-e_nummer = 1
-k_nummer = 1
-list = os.listdir('./faktura/') # dir is your directory path
-fakturanummer = len(list) + 1
-
-filename_csv_b = 'data_egenpersonsforetak.csv'
-filename_csv_e = 'data_elever.csv'
-filename_csv_k = 'data_kunder.csv'
-filename_excel = 'info.xlsx'
-
-b_navn, b_adresse, b_postnummer, b_epost, b_telefon, b_organisasjonsnummer, b_kontonummer = bedrift_info(filename_csv_b, filename_excel)
-k_navn,k_adresse,k_postnummer, k_epost = kunde_info(filename_csv_k, filename_excel,k_nummer)
-#e_navn, e_epost, e_telefon = elev_info(filename_csv_e, filename_excel,elevnummer)
-
-#datoer
-dato = datetime.datetime.now()
-fakturadato =  str(dato.day) + "." + str(dato.month) + "." + str(dato.year)
-leveringsdato = fakturadato
-dato_forfall = dato + datetime.timedelta(days=14)
-forfallsdato  = str(dato_forfall.day) + "." + str(dato_forfall.month) + "." + str(dato_forfall.year)
-
-
-#funksjon som lager regningen
 def create_invoice():
     i = 2
     #verdier fra xcel ark
@@ -219,4 +160,3 @@ def create_invoice():
     c.drawString(h,y,'Kontomummer: ' + str(b_kontonummer))
 
     c.save()
-create_invoice()
