@@ -7,7 +7,7 @@ Fakturaen skal inneholde en liste med navn på elever som jeg har undervist unde
 
 Jeg har foreløpig gjort noe av dette i en kombinasjon av excel filer og csv filer. Noen av csv filene er nok unødvendige.
 
-
+V
 Mulighet for å legge til utgifter(reise,google drive abenoment osv osv) med kategori slik at de havner under samme post i regnskapet.
 
 Har lyst til å lage mulighet til å laste opp bilde av feks. kvitteringer i forbindelse med utfigter slik at kvitteringene lagres og kategoriseres sammen med utgiften.
