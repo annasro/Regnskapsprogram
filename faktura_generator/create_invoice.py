@@ -1,4 +1,22 @@
-def create_invoice():
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.pdfmetrics import stringWidth
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.pagesizes import A4
+from openpyxl import load_workbook
+#funksjon som lager regningen
+def create_invoice(*parameters):
+    print(parameters)
+    #import excel file
+    wb = load_workbook("faktura_mal.xlsx", data_only = True)
+    #åpne riktig ark
+    sheet = wb['faktura']
+
+    #lage pdf
+    c = canvas.Canvas('./faktura/'+'faktura_' + str(fakturanummer)+"_"+ str(fakturadato) + '.pdf')
+    #sidestørrelse
+    c.setPageSize(A4)
+
     i = 2
     #verdier fra xcel ark
     #fakturadato_    = sheet.cell(row = i, column = 6).value
@@ -7,14 +25,14 @@ def create_invoice():
     kommentar        = sheet.cell(row = i, column = 9).value
     no_elever        = sheet.cell(row = 4, column = 2).value
 
-    #lage pdf
-    c = canvas.Canvas('./faktura/'+'faktura_' + str(fakturanummer)+"_"+ fakturadato + '.pdf')
-
-    #sidestørrelse
-    c.setPageSize(A4)
 
     #logo
     #c.drawInlineImage('logo.jpg', start_x, start_y, width = bilde_bredde, height = bilde_høyde)
+
+    #sidestørrelse A4
+    width, height = A4
+    margin = 40
+    pdfmetrics.registerFont(TTFont('Arial','Arial.ttf'))
 
     #elementposisjoner
     v =  margin
