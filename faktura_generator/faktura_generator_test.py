@@ -13,37 +13,50 @@ import os
 import pandas
 from info import *
 from create_invoice import *
+from monthly_hours_register import*
 import sys
 
 
 '''
 if len(sys.argv) == 1:
-    print('Skriv inn et filnavn')
-    filename = raw_input("Skriv inn filnavn")
+    print('Skriv inn et filname')
+    filename = raw_input("Skriv inn filname")
 else:
     filename = sys.argv[1].csv
     e_ummer = sys.argv[2]
     k_nummer = sys.argv[3]
 '''
-e_nummer = 1
-k_nummer = 1
-list = os.listdir('./faktura/') # dir is your directory path
-fakturanummer = len(list) + 1
 
 filename_csv_b = 'data_egenpersonsforetak.csv'
 filename_csv_e = 'data_elever.csv'
 filename_csv_k = 'data_kunder.csv'
 filename_excel = 'info.xlsx'
+filename_excel_faktura = 'faktura_mal.xlsx'
 
-b_navn, b_adresse, b_postnummer, b_epost, b_telefon, b_organisasjonsnummer, b_kontonummer = bedrift_info(filename_csv_b, filename_excel)
-k_navn,k_adresse,k_postnummer, k_epost = kunde_info(filename_csv_k, filename_excel,k_nummer)
-#e_navn, e_epost, e_telefon = elev_info(filename_csv_e, filename_excel,elevnummer)
+e_nummer = 1
+k_nummer = 1
+i = 0
+
+list = os.listdir('./faktura/') # dir is your directory path
+invoice_no = len(list) + 1
 
 #datoer
-dato = datetime.datetime.now()
-fakturadato =  str(dato.day) + "." + str(dato.month) + "." + str(dato.year)
-leveringsdato = fakturadato
-dato_forfall = dato + datetime.timedelta(days=14)
-forfallsdato  = str(dato_forfall.day) + "." + str(dato_forfall.month) + "." + str(dato_forfall.year)
+date = datetime.datetime.now()
+invoicedate =  str(date.day) + "." + str(date.month) + "." + str(date.year)
+deliverydate = invoicedate
+duedate = date + datetime.timedelta(days=14)
+duedate_str  = str(duedate.day) + "." + str(duedate.month) + "." + str(duedate.year)
+month = str(date.month)
 
-create_invoice(b_navn, b_adresse, b_postnummer, b_epost, b_telefon, b_organisasjonsnummer, b_kontonummer,k_navn,k_adresse,k_postnummer, k_epost,fakturanummer)
+b_name, b_adress, b_postcode, b_mail, b_phone, b_orgno, b_accountno = bedrift_info(filename_csv_b, filename_excel)
+k_name,k_adress,k_postcode, k_mail = kunde_info(filename_csv_k, filename_excel,k_nummer)
+#e_name, e_mail, e_phone = elev_info(filename_csv_e, filename_excel,e_nummer)
+
+
+data = pd.read_excel(r'./'+ filename_excel_faktura, sheet_name = str(month)).astype(str)
+no_data = data.shape[0]
+
+create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postcode, b_mail, b_phone, b_orgno, b_accountno,
+                k_name,k_adress,k_postcode, k_mail,k_nummer,
+                invoice_no,
+                invoicedate,deliverydate,duedate_str)
