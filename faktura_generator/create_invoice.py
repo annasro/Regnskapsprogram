@@ -41,7 +41,11 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.drawString(v,y, str(b_name))
     c.setFont('Helvetica', 10)
 
+<<<<<<< HEAD
     c.drawString(h ,y,'Org.nr NO '+ str(b_orgno))
+=======
+    c.drawString(h ,y,'Org.nr NO'+ str(b_orgno))
+>>>>>>> 3042b4c329d56a828f06a9b9651d078704f90a99
     y -= margin*0.4
     c.drawString(v,y, str(b_adress))
     y -= margin*0.4
@@ -157,7 +161,12 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.drawString(midt,y,str(total))
     c.setFont('Helvetica', 10)
     c.drawString(h,y,'Kontonummer: ' + str(b_accountno))
+<<<<<<< HEAD
     c.setFont('Helvetica', 10)
     y -= margin*0.6
     c.drawCentredString(midt, y,'Anna Stray Rongve | Org.nr NO ' + b_orgno + ' | ' + b_mail + '| Tlf.' + b_phone)
+=======
+    c.setFont('Helvetica-Bold', 10)
+    c.drawStringCenterd('Anna Stray Rongve | Org.nr NO ' + b_orgno + ' | ' + b_mail + 'Tlf.' + b_phone)
+>>>>>>> 3042b4c329d56a828f06a9b9651d078704f90a99
     c.save()
