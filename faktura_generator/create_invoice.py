@@ -12,9 +12,12 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
                    invoicedate,deliverydate,duedate_str):
 
     #lage pdf
-    c = canvas.Canvas('./faktura/'+'faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
+    c = canvas.Canvas('./faktura/test'+'faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
+
     #sidestørrelse
     c.setPageSize(A4)
+    c.setTitle(str(invoice_no))
+
 
     #logo
     #c.drawInlineImage('logo.jpg', start_x, start_y, width = bilde_bredde, height = bilde_høyde)
@@ -23,6 +26,8 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     width, height = A4
     margin = 40
     pdfmetrics.registerFont(TTFont('Arial','Arial.ttf'))
+    c.getAvailableFonts()
+
 
     #elementposisjoner
     v =  margin
@@ -33,6 +38,7 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     orgno_width =stringWidth(str(b_orgno),'Helvetica',10)
     h = width - 3.5*margin - orgno_width
     h1 = width - 2*margin
+    h2 = width - margin
     midt = width/2.0
     y =  height - margin
 
@@ -40,12 +46,7 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.setFont('Helvetica-Bold', 10)
     c.drawString(v,y, str(b_name))
     c.setFont('Helvetica', 10)
-
-<<<<<<< HEAD
     c.drawString(h ,y,'Org.nr NO '+ str(b_orgno))
-=======
-    c.drawString(h ,y,'Org.nr NO'+ str(b_orgno))
->>>>>>> 3042b4c329d56a828f06a9b9651d078704f90a99
     y -= margin*0.4
     c.drawString(v,y, str(b_adress))
     y -= margin*0.4
@@ -57,11 +58,9 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     y -= margin
 
     c.setFont('Helvetica', 10)
-    c.drawString(v,y, str(b_mail))
     c.drawString(h,y,'Kundenr.: ')
     c.drawString(h1,y, str(k_nummer))
     y -= margin*.45
-    c.drawString(v,y, 'Telefon: '+ str(b_phone))
     c.drawString(h,y,'Fakturanr.: ')
     c.drawString(h1,y, str(invoice_no))
     y -= margin*.4
@@ -99,8 +98,11 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.drawString(v3,y,  'Bonus' )
     c.drawString(h,y,   'MVA sats:' )
     c.drawString(h1,y,  'Netto pris')
-    y -= margin*.4
+    y -= margin*.1
 
+    c.setStrokeColorRGB(1/120.0,1/120.0,1/120.0)
+    c.line(margin,y,width-margin,y)
+    y -= margin*.4
 
 
     for i in range(0,no_data):
@@ -112,10 +114,13 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
         c.drawString(v3,y,str(bonus))
 
         c.setFont('Times-Roman', 10)
-        c.drawString(h,y,  '0.00 %')
+        c.drawString(h,y,  str(VAT_rate))
         c.drawString(h1,y, str(net_price))
-        y -= margin*.4
+        y -= margin*.5
 
+    c.setFont('Helvetica-Oblique',10)
+    textWidth = stringWidth('Alle beløp er oppgitt i NOK', 'Helvetica-Oblique', 10)
+    c.drawString(width-margin-textWidth,y, 'Alle beløp er oppgitt i NOK')
     y -= margin *2
     c.setFont('Helvetica-Bold', 10)
     c.drawString(h,y,'MVA:')
@@ -161,12 +166,10 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.drawString(midt,y,str(total))
     c.setFont('Helvetica', 10)
     c.drawString(h,y,'Kontonummer: ' + str(b_accountno))
-<<<<<<< HEAD
     c.setFont('Helvetica', 10)
-    y -= margin*0.6
-    c.drawCentredString(midt, y,'Anna Stray Rongve | Org.nr NO ' + b_orgno + ' | ' + b_mail + '| Tlf.' + b_phone)
-=======
-    c.setFont('Helvetica-Bold', 10)
-    c.drawStringCenterd('Anna Stray Rongve | Org.nr NO ' + b_orgno + ' | ' + b_mail + 'Tlf.' + b_phone)
->>>>>>> 3042b4c329d56a828f06a9b9651d078704f90a99
+    y -= margin*1.5
+    #textWidth = stringWidth(b_name, 'Helvetica-Bold', 10)
+    #position = stringWidth(b_name + ' | Org.nr NO ' + b_orgno + ' | ' + b_mail + ' | Tlf.' + b_phone, 'Helvetica-Bold', 10)
+    #c.drawCentredString(position-textWidth,y,b_name)
+    #c.drawCentredString(midt ,y, <font name="Helvetica-Bold" size="10">  <b>b_name </b></font>   + ' | Org.nr NO ' + b_orgno + ' | ' + b_mail + ' | Tlf.' + b_phone)
     c.save()

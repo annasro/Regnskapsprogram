@@ -37,8 +37,9 @@ e_nummer = 1
 k_nummer = 1
 i = 0
 
-list = os.listdir('./faktura/') # dir is your directory path
-invoice_no = len(list) + 1
+#list = os.listdir('./faktura/test') # dir is your directory path
+#invoice_no = len(list) + 1
+invoice_no = 0
 
 #datoer
 date = datetime.datetime.now()
@@ -52,7 +53,7 @@ b_name, b_adress, b_postcode, b_mail, b_phone, b_orgno, b_accountno = bedrift_in
 k_name,k_adress,k_postcode, k_mail = kunde_info(filename_csv_k, filename_excel,k_nummer)
 #e_name, e_mail, e_phone = elev_info(filename_csv_e, filename_excel,e_nummer)
 
-
+#lese fil
 data = pd.read_excel(r'./'+ filename_excel_faktura, sheet_name = str(month)).astype(str)
 no_data = data.shape[0]
 
