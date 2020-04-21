@@ -2,10 +2,12 @@ from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.pdfmetrics import stringWidth
 from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.lib.styles import StyleSheet1, ParagraphStyle
+from reportlab.platypus import Paragraph
 from reportlab.lib.pagesizes import A4
 from monthly_hours_register import*
+from stylesheet_invoice import StyleSheet
 #funksjon som lager regningen
-
 def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postcode, b_mail, b_phone, b_orgno, b_accountno,
                    k_name,k_adress,k_postcode, k_mail,k_nummer,
                    invoice_no,
@@ -27,7 +29,8 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     margin = 40
     pdfmetrics.registerFont(TTFont('Arial','Arial.ttf'))
     c.getAvailableFonts()
-
+    stylesheet = StyleSheet()
+    normal = stylesheet['anna']
 
     #elementposisjoner
     v =  margin
@@ -43,7 +46,8 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     y =  height - margin
 
     #bedrift
-    c.setFont('Helvetica-Bold', 10)
+    #c.setFont('Helvetica-Bold', 10)
+    Paragraph(str(b_name),normal)
     c.drawString(v,y, str(b_name))
     c.setFont('Helvetica', 10)
     c.drawString(h ,y,'Org.nr NO '+ str(b_orgno))
@@ -60,20 +64,20 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.setFont('Helvetica', 10)
     c.drawString(h,y,'Kundenr.: ')
     c.drawString(h1,y, str(k_nummer))
-    y -= margin*.45
+    y -= margin*.35
     c.drawString(h,y,'Fakturanr.: ')
     c.drawString(h1,y, str(invoice_no))
-    y -= margin*.4
+    y -= margin*.35
 
 
     #fakurainfo
     c.drawString(h,y,'Fakturadato: ')
     c.drawString(h1,y, str(invoicedate))
-    y -= margin*.4
+    y -= margin*.35
     c.drawString(h,y,'Forfallsdato:')
     c.setFont('Helvetica-Bold', 10)
     c.drawString(h1,y, str(duedate_str))
-    y -= margin*.4
+    y -= margin*.35
     c.setFont('Helvetica', 10)
     c.drawString(h,y,'Leveringsdato: ')
     c.drawString(h1,y, str(deliverydate))
@@ -82,10 +86,10 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     #kunde
     c.setFont('Helvetica-Bold', 10)
     c.drawString(v,y, str(k_name))
-    y -= margin*.4
+    y -= margin*.35
     c.setFont('Helvetica', 10)
     c.drawString(v,y, str(k_adress))
-    y -= margin*.4
+    y -= margin*.35
     c.drawString(v,y, str(k_postcode))
     y -= margin*2
     y = height -350
@@ -167,9 +171,6 @@ def create_invoice(filename_excel_faktura,data,no_data,b_name, b_adress,b_postco
     c.setFont('Helvetica', 10)
     c.drawString(h,y,'Kontonummer: ' + str(b_accountno))
     c.setFont('Helvetica', 10)
-    y -= margin*1.5
-    #textWidth = stringWidth(b_name, 'Helvetica-Bold', 10)
-    #position = stringWidth(b_name + ' | Org.nr NO ' + b_orgno + ' | ' + b_mail + ' | Tlf.' + b_phone, 'Helvetica-Bold', 10)
-    #c.drawCentredString(position-textWidth,y,b_name)
-    #c.drawCentredString(midt ,y, <font name="Helvetica-Bold" size="10">  <b>b_name </b></font>   + ' | Org.nr NO ' + b_orgno + ' | ' + b_mail + ' | Tlf.' + b_phone)
+    y -= margin*1.3
+    c.drawCentredString(midt ,y, b_name + '  |  Org.nr NO ' + b_orgno + '  |  ' + b_mail + '  |  Tlf. ' + b_phone)
     c.save()
