@@ -17,5 +17,3 @@ def monthly_hours_register(i,data,filename_excel_faktura,month,
     sum = data.Sum[i]
     total = data.Totalt[0]
     return description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total
-
-#https://cmdlinetips.com/2018/12/how-to-loop-through-pandas-rows-or-how-to-iterate-over-pandas-rows/
