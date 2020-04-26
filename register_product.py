@@ -10,7 +10,7 @@ def getInput(promt,type = None, min_=None, max_= None, range_=None):
     if min_ is not None and max_ is not None and max_ < min_:
         raise ValueError('min_ must be less or equal to max_.')
     while True:
-        value = input(promt)
+        value = input(promt) 
         if type_ is not None:
             try:
                 value = type_(value)
