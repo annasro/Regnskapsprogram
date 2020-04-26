@@ -10,7 +10,11 @@ def getInput(promt,type = None, min_=None, max_= None, range_=None):
     if min_ is not None and max_ is not None and max_ < min_:
         raise ValueError('min_ must be less or equal to max_.')
     while True:
+<<<<<<< HEAD
         value = input(promt) 
+=======
+        value = input(promt)
+>>>>>>> b4869e255ac01a6c759b80c06035bd94e3011d7e
         if type_ is not None:
             try:
                 value = type_(value)
@@ -75,9 +79,13 @@ quantity = getInput('Antall solgt: ', int)
 
 
 '''
+<<<<<<< HEAD
 #Format imports - filter
 #wont matter if cap or not.
 #remove spacings
+=======
+#Format imports
+>>>>>>> b4869e255ac01a6c759b80c06035bd94e3011d7e
 replies = map(input, prompts)
 lowercased_replies = map(str.lower, replies)
 stripped_replies = map(str.strip, lowercased_replies)
@@ -109,6 +117,7 @@ def makeExcelFile(df):
 
 
 '''
+<<<<<<< HEAD
 #bestemme hva som skjer med tomme/manglende verdier.
 (df.style
    .set_na_rep("FAIL")
@@ -119,6 +128,8 @@ def makeExcelFile(df):
 df.style.hide_columns(['C','D'])
 df.style.hide_index()
 
+=======
+>>>>>>> b4869e255ac01a6c759b80c06035bd94e3011d7e
 
     quantity = data.Antall
     mylist = []
