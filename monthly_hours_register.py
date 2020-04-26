@@ -1,5 +1,5 @@
 import pandas as pd
-import datetime
+#import datetime
 
 def monthly_hours_register(i,data,filename_excel_faktura,month,
                            dtype={'Beskrivelse': str,
