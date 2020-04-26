@@ -17,7 +17,7 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
     #lage pdf
     c = canvas.Canvas('../'+year+'/Faktura/test/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
     data = pd.read_excel(r'../'+year+'/'+filename_excel_regnskap, sheet_name = str(month)).astype(str)
-
+    
     no_data = data.shape[0]
 
     #sidestørrelse

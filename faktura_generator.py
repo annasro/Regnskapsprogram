@@ -47,8 +47,9 @@ k_name,k_adress,k_postcode, k_mail = kunde_info(filename_excel,k_nummer)
 #e_name, e_mail, e_phone = elev_info(filename_excel,e_nummer)
 
 
-create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, b_phone, b_orgno, b_accountno,
-                k_name,k_adress,k_postcode, k_mail,k_nummer,
-                invoice_no,
-                invoicedate,deliverydate,duedate_str,
-                year)
+create_invoice(filename_excel_regnskap,
+               b_name, b_adress,b_postcode, b_mail, b_phone, b_orgno, b_accountno,
+               k_name,k_adress,k_postcode, k_mail,k_nummer,
+               invoice_no,
+               invoicedate,deliverydate,duedate_str,
+               year)
