@@ -1,31 +1,40 @@
 import pandas as pd
 
-name, amount, VAT_code, b_accountno,quantity,product_no = []
-columns = ['Navn', 'Belop_eks_mva','Mvakode','Konto','Antall','Varenummer']
-data = {'Navn':name,'Belop_eks_mva':amount,
-        'Mvakode': VAT_code,'Konto':b_accountno,
-        'Antall':quantity,'Varenummer':product_no}
 
-def getInput(promt,type = None, min_=None, max_= None, range_=None):
+def makeDict(columns):
+    Dict = {listKey: [] for listKey in columns}
+    return Dict
+
+def makeDataFrame(data):
+    df = pd.DataFrame(data)
+    return df
+
+def addRowDataFrame(data,df):
+    #data should be data = {Navn':name,'Belop_eks_mva':amount,'Mvakode': VAT_code,'Konto':b_accountno,'Antall':quantity,'Varenummer':product_no}}
+    new_row = pd.Series(data)
+    df = df.append(new_row, ignore_index = True)
+    return df
+
+def makeExcelFile(df):
+    df.to_excel(path,sheetname,index = True)
+
+def getInput(text, type_ = None, min_=None, max_= None, range_=None):
+    
     if min_ is not None and max_ is not None and max_ < min_:
         raise ValueError('min_ must be less or equal to max_.')
     while True:
-<<<<<<< HEAD
-        value = input(promt) 
-=======
-        value = input(promt)
->>>>>>> b4869e255ac01a6c759b80c06035bd94e3011d7e
+        Value = input(text)
         if type_ is not None:
             try:
-                value = type_(value)
+                Value = type_(Value)
             except ValueError:
                 print('Input type must be {0}.'.format(type_.__name__))
                 continue
-        if max_ is not None and value > max_:
+        if max_ is not None and Value > max_:
              print("Input must be less than or equal to {0}.".format(max_))
-        elif min_ is not None and value < min_:
+        elif min_ is not None and Value < min_:
             print("Input must be greater than or equal to {0}.".format(min_))
-        elif range_ is not None and value not in range_:
+        elif range_ is not None and Value not in range_:
             if isinstance(range_, range):
                 template = 'Input must be between {0.start} and {0.stop}.'
                 print(template.format(range_))
@@ -33,59 +42,59 @@ def getInput(promt,type = None, min_=None, max_= None, range_=None):
                 template = 'Input must be {0}.'
                 if len(range_)== 1:
                     print(template.formate(*range_))
-                else pprint(template.format(" or ".join((", ".join(map(str,
-                                                                     range_[:-1])),
-                                                       str(range_[-1])))))
-        if any(df.name == value):
-            print('Produktet finnes allerede \n')
-            print(df.loc[df.name == input])         #gives relevant rows
-            print(df.loc[df.name == input].index)   #Gives relevant row names
-            continue
-
-            '''
-        if (value = 'HØY'):
-            value = 0.25
-        elif (value = 'MIDDELS'):
-            value = 0.15
-        elif (value = 'LAV'):
-            value = 0.12
-        elif (value = 'INGEN'):
-            value = 0.0
-        elif (value = 'FRITATT'):
-            value = 0.0
+                else:
+                     print(template.format(" or ".join((", ".join(map(str,range_[:-1])), str(range_[-1])))))
         else:
-            value = 0.25
-            '''
-
-        else:
-            return value
-
-
-def input():
-        #df.lookup([0,2,4,6], ['B','C','A',D]) #gives array with index 0 from colum B etc
-        #input error
-
-    #ask for amount
-    #ask for VAT_code - if none set to 25
-    #ask for quantity
-    #add number (totalt number of rows + 1)
-
-itemName = getInput('Produktnavn/beskrivelse: ')
+            return Value
+'''
+itemName = getInput(" Produktnavn/beskrivelse: ",str)
 amount = getInput('Pris per stk: ',float)
-VAT_code =  getInput('Mvasats(høy, middels, lav, inten, unntatt):')
-#b_accountno = b_accountno #import
+VAT_code =  getInput('Mvasats(høy, middels, lav, inten, unntatt):', str)
+b_accountno = b_accountno #import
 quantity = getInput('Antall solgt: ', int)
-#itemNo = number of rows + 1
+itemNo = number of rows + 1
+'''
+
+columns = ['Navn', 'Belop_eks_mva','Mvakode','Konto','Antall','Varenummer']
+myDict = makeDict(columns)
+df = makeDataFrame(myDict)
+Itemname = 'Anna'
+amount = 10
+VAT_code = 'HØY'
+b_accountno = 123
+quantity = 2
+product_no = 1
+data = {'Navn':Itemname,'Belop_eks_mva':amount,'Mvakode': VAT_code,'Konto':b_accountno,'Antall':quantity,'Varenummer':product_no}
+newRow = addRowDataFrame(data, df)
 
 
 '''
-<<<<<<< HEAD
+if any(df.Navn == itemName):
+    print('Produktet finnes allerede \n')
+    print(df.loc[df.name == input])         #gives relevant rows
+    print(df.loc[df.name == input].index)   #Gives relevant row names
+'''
+
+
+
+'''
+if (Value = 'HØY'):
+    Value = 0.25
+elif (Value = 'MIDDELS'):
+    Value = 0.15
+elif (Value = 'LAV'):
+    Value = 0.12
+elif (Value = 'INGEN'):
+    Value = 0.0
+elif (Value = 'FRITATT'):
+    Value = 0.0
+else:
+    Value = 0.25
+    '''
+'''
 #Format imports - filter
 #wont matter if cap or not.
 #remove spacings
-=======
-#Format imports
->>>>>>> b4869e255ac01a6c759b80c06035bd94e3011d7e
 replies = map(input, prompts)
 lowercased_replies = map(str.lower, replies)
 stripped_replies = map(str.strip, lowercased_replies)
@@ -104,20 +113,7 @@ valid_response = next(filter(fruits.__contains__, processed_replies))
 print(valid_response)
 '''
 
-def makeDataFrame(data):
-    return df = pd.DataFrame(data)
-
-def addRowDataFrame(data,df):
-    #data should be data = {Navn':name,'Belop_eks_mva':amount,'Mvakode': VAT_code,'Konto':b_accountno,'Antall':quantity,'Varenummer':product_no}}
-    new_row = pd.Series(data)
-    df = df.append(new_row, ignore_index = True)
-
-def makeExcelFile(df):
-    df.to_excel(path,sheetname,index = True)
-
-
 '''
-<<<<<<< HEAD
 #bestemme hva som skjer med tomme/manglende verdier.
 (df.style
    .set_na_rep("FAIL")
@@ -128,8 +124,6 @@ def makeExcelFile(df):
 df.style.hide_columns(['C','D'])
 df.style.hide_index()
 
-=======
->>>>>>> b4869e255ac01a6c759b80c06035bd94e3011d7e
 
     quantity = data.Antall
     mylist = []
