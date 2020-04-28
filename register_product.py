@@ -15,11 +15,9 @@ def addRowDataFrame(data,df):
     df = df.append(new_row, ignore_index = True)
     return df
 
-def makeExcelFile(df):
-    df.to_excel(path,sheetname,index = True)
 
 def getInput(text, type_ = None, min_=None, max_= None, range_=None):
-    
+
     if min_ is not None and max_ is not None and max_ < min_:
         raise ValueError('min_ must be less or equal to max_.')
     while True:
