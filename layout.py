@@ -12,12 +12,13 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
                    k_name,k_adress,k_postcode, k_mail,k_nummer,
                    invoice_no,
                    invoicedate,deliverydate,duedate_str,
-                   year):
+                   year,month):
 
+    month = str(int(month) - 1)
     #lage pdf
-    c = canvas.Canvas('../'+year+'/Faktura/test/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
-    data = pd.read_excel(r'../'+year+'/'+filename_excel_regnskap, sheet_name = str(month)).astype(str)
-    
+    c = canvas.Canvas('../'+year+'/Faktura/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
+    data = pd.read_excel(r'../'+year+'/'+filename_excel_regnskap, sheet_name = str(month),decimal=",").astype(str)
+
     no_data = data.shape[0]
 
     #sidestørrelse
@@ -99,12 +100,12 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
 
 
     #midtdel
-    c.drawString(v,y,   'Beskrivelse')
-    c.drawString(v1,y,  'Antall')
-    c.drawString(v2,y,  'Timepris' )
-    c.drawString(v3,y,  'Bonus' )
-    c.drawString(h,y,   'MVA sats:' )
-    c.drawString(h1,y,  'Netto pris')
+    c.drawString(v,y,   'Beskrivelse:')
+    c.drawString(v1,y,  'Antall:')
+    c.drawString(v2,y,  'Pris:' )
+    c.drawString(v3,y,  'Bonus:' )
+    c.drawString(h,y,   'MVA sats i %:' )
+    c.drawString(h1,y,  'Netto pris:')
     y -= margin*.1
 
     c.setStrokeColorRGB(1/120.0,1/120.0,1/120.0)
@@ -113,7 +114,7 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
 
 
     for i in range(0,no_data):
-        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = monthly_hours_register(i,data,filename_excel_regnskap,month)
+        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total, rounding = monthly_hours_register(i,data,filename_excel_regnskap,month)
         c.setFont(fontH, 10)
         c.drawString(v,y, str(description))
         c.drawString(v1,y,str(quantity))
@@ -124,6 +125,11 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
         c.drawString(h1,y, str(net_price))
         y -= margin*.5
 
+
+    c.drawString(v,y,'Kroneavrunding')
+    c.drawString(h1,y,str(rounding))
+    y -= margin*.8
+
     c.setFont('Helvetica-Oblique',10)
     textWidth = stringWidth('Alle beløp er oppgitt i NOK', 'Helvetica-Oblique', 10)
     c.drawString(width-margin-textWidth,y, 'Alle beløp er oppgitt i NOK')
@@ -131,12 +137,12 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
     c.setFont(fontHB, 10)
     c.drawString(h,y,'MVA:')
     c.setFont(fontTR, 10)
-    c.drawString(h1,y, str(VAT_price))
+    c.drawString(h1,y, str(VAT_price)+',00')
     y -= margin*.4
     c.setFont(fontHB, 10)
     c.drawString(h,y,'Total:')
     c.setFont(fontTR, 10)
-    c.drawString(h1,y,str(total))
+    c.drawString(h1,y,str(total)+',00')
     y -= margin
 
     c.setFont(fontH, 10)
@@ -146,7 +152,7 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
     #nederste del av faktura
     y = height - 630
     c.setFont(fontTR, 10)
-    c.drawString(midt,y, str(total))
+    c.drawString(midt,y, str(total)+',00')
     y -= margin*0.4
     c.setFont(fontHB, 10)
     c.drawString(h1,y, str(duedate_str))
@@ -169,8 +175,8 @@ def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, 
     y -= margin
 
     c.setFont(fontTR, 10)
-    c.drawString(midt,y,str(total))
-    c.setFont(fontH, 10)
+    c.drawString(midt,y,str(total)+',00')
+    c.setFont(fontHB, 10)
     c.drawString(h,y,'Kontonummer: ' + str(b_accountno))
     c.setFont(fontH, 10)
     y -= margin*1.3

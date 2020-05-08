@@ -39,8 +39,11 @@ if not os.path.exists(os.path.join('../', year, filename_excel_regnskap)):
 e_nummer = 1
 k_nummer = 1
 
-list = os.listdir(os.path.join('.../Regnskap/', year,'/Faktura/'))
-invoice_no = len(list) + 1
+dir =  '../'+ str(year)+'/Faktura/'
+testdir = './test/'
+
+list_invoice_no =  os.listdir(dir)
+invoice_no = len(list_invoice_no) + 1
 
 b_name, b_adress, b_postcode, b_mail, b_phone, b_orgno, b_accountno = bedrift_info(filename_excel)
 k_name,k_adress,k_postcode, k_mail = kunde_info(filename_excel,k_nummer)
@@ -51,4 +54,4 @@ create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, b_ph
                 k_name,k_adress,k_postcode, k_mail,k_nummer,
                 invoice_no,
                 invoicedate,deliverydate,duedate_str,
-                year)
+                year,month)

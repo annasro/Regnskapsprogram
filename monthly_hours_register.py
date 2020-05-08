@@ -16,4 +16,6 @@ def monthly_hours_register(i,data,filename_excel_faktura,month,
     VAT_price =  data.Momspris[i]
     sum = data.Sum[i]
     total = data.Totalt[0]
-    return description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total
+    rounding = data.Kroneavrunding[0]
+
+    return description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total, rounding
