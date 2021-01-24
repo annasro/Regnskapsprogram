@@ -1,42 +1,6 @@
 import pandas as pd
 from writeToFromFiles import*
-
-def getInput(text, type_ = None, min_=None, max_= None, range_=None):
-    if min_ is not None and max_ is not None and max_ < min_:
-        raise ValueError('min_ must be less or equal to max_.')
-    while True:
-        Value = input(text)
-        if type_ is not None:
-            try:
-                Value = type_(Value)
-            except ValueError:
-                print('Input type must be {0}.'.format(type_.__name__))
-                continue
-        if max_ is not None and Value > max_:
-             print("Input must be less than or equal to {0}.".format(max_))
-        elif min_ is not None and Value < min_:
-            print("Input must be greater than or equal to {0}.".format(min_))
-        elif range_ is not None and Value not in range_:
-            if isinstance(range_, range):
-                template = 'Input must be between {0.start} and {0.stop}.'
-                print(template.format(range_))
-            else:
-                template = 'Input must be {0}.'
-                if len(range_)== 1:
-                    print(template.formate(*range_))
-                else:
-                     print(template.format(" or ".join((", ".join(map(str,range_[:-1])), str(range_[-1])))))
-
-        if any(df.Navn == Value) or any(df.product_no == Value):
-            print('Produktet finnes allerede \n')
-            print(df.loc[df.Navn == Value])         #gives relevant rows
-            print(df.loc[df.Navn == Value].index)   #Gives relevant row names
-            print('Prøv igjen\n')
-
-
-
-        else:
-            return Value
+import inquirer
 
 
 '''
@@ -51,14 +15,18 @@ itemNo = number of rows + 1
 pathEXCEL = r'./data/excel/test.xlsx'
 pathCSV = r'./data/CSV/test.csv'
 sheetname = 'Ark1'
-header = ['Navn', 'Belop_eks_mva','Mvakode','Kontonummer','Antall','Varenummer']
+header = ['Navn','Varenummer','Produkttype', 'Inntektskonto','Enhetspris','MVA-Type' 'Varebeholdning','Merknad','Belop_eks_mva','Mvakode','Kontonummer',]
 
 #itemName = 'Anna'
 #VAT_code = 'HØY'
 amount = 50000
+revenue_account = 3220
+price = 247.5
 b_accountno = 50
 quantity = 50
 product_no = 1076
+product_type = {'Vare(videresalg)','Vare(egenprodusert)','Tjeneste', 'Annet'}
+
 
 #make Dataframe
 df_header = makeDataFrame(header)  #Dataframe with header only
@@ -73,21 +41,25 @@ VAT_codes = {'Navn':itemName,'Belop_eks_mva':amount, 'Mvakode':VAT_code, 'Konton
 
 if (VAT_code == 'HØY'):
     Value = 0.25
-elif (Value == 'MIDDELS'):
+elif (VAT_code == 'MIDDELS'):
     Value == 0.15
-elif (Value == 'LAV'):
+elif (VAT_code == 'LAV'):
     Value == 0.12
-elif (Value == 'INGEN'):
+elif (VAT_code == 'INGEN'):
     Value = 0.0
-elif (Value == 'FRITATT'):
+elif (VAT_code == 'FRITATT'):
     Value == 0.0
 else:
-    Value == 0.25
+    VAT_code == 0.25
 
 #data = [(itemName , amount , VAT_code , b_accountno , quantity, product_no)]
 #adding row to DataFrame
 
-data = {'Navn':itemName,'Belop_eks_mva':amount, 'Mvakode':VAT_code, 'Kontonummer':b_accountno,'Antall':quantity, 'Varenummer':product_no}
+header = ['Navn','Varenummer','Produkttype', 'Inntektskonto','Enhetspris','MVA-Type' 'Varebeholdning','Merknad','Belop_eks_mva','Mvakode','Kontonummer',]
+
+data = {'Navn':itemName, 'Varenummer':product_no,'Produkttype':product_type,'Inntektskonto':revenue_account,
+        'Enhetspris':price,'Varebeholdning':inventory,'Merknad':note,
+        'Belop_eks_mva':amount,'Mvakode':VAT_code,'Kontonummer':b_accountno,}
 df = addRowDataFrame(data, df_header) #add row to dataframe
 
 

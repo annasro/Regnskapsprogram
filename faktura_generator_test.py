@@ -42,7 +42,7 @@ k_nummer = 1
 dir =  '../'+ str(year)+'/Faktura/'
 testdir = './test/'
 
-list_invoice_no =  os.listdir(dir)
+list_invoice_no =  os.listdir(testdir)
 invoice_no = len(list_invoice_no) + 1
 
 b_name, b_adress, b_postcode, b_mail, b_phone, b_orgno, b_accountno = bedrift_info(filename_excel)
