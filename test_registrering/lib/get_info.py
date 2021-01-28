@@ -1,27 +1,30 @@
 import pandas as pd
 
-def bedrift_info(filename_excel):
-    data = pd.read_excel(r'./data/excel/'+filename_excel, sheet_name = 'Bedrift' ).astype(str)
-    b_name = data.Navn[0]
-    b_adress = data.Adresse[0]
-    b_postcode = data.Postnummer[0]
-    b_mail = data.Epost[0]
-    b_phone =  data.Telefon[0]
-    b_orgno =  data.Organisajonsnummer[0]
-    b_accountno =  data.Kontonummer[0]
-    return b_name, b_adress, b_postcode, b_mail, b_phone, b_orgno, b_accountno
+def company_info(filename):
+    data = pd.read_excel(filename, sheet_name = 'Company' ).astype(str)
+    comp_name = data.Name[0]
+    comp_adress = data.Adress[0]
+    comp_postcode = data.Postalcode[0]
+    comp_mail = data.Mail[0]
+    comp_phone =  data.Phone[0]
+    comp_orgno =  data.Orgno[0]
+    comp_accountno =  data.Account_number[0]
+    return comp_name, comp_adress, comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno
 
-def elev_info(filename_excel,elevnummer):
-    data = pd.read_excel(r'./data/excel/'+filename_excel, sheet_name = 'Elever' ).astype(str)
-    e_name = data.Navn[elevnummer-1]
-    e_mail = data.Epost[elevnummer-1]
-    e_phone = data.Telefon[elevnummer-1]
-    return e_name, e_mail, e_phone
 
-def kunde_info(filename_excel,kundenummer):
-    data = pd.read_excel(r'./data/excel/'+filename_excel, sheet_name = 'Kunder' ).astype(str)
-    k_name = data.Navn[kundenummer-1]
-    k_adress = data.Adresse[kundenummer-1]
-    k_postcode = data.Postnummer[kundenummer-1]
-    k_mail = data.Epost[kundenummer-1]
-    return k_name,k_adress,k_postcode, k_mail
+def costumer_info(filename,costumer_no):
+    data = pd.read_excel(filename, sheet_name = 'Costumers' ).astype(str)
+    costumer_name = data.Name[costumer_no-1]
+    costumer_adress = data.Adress[costumer_no-1]
+    costumer_postcode = data.Postalcode[costumer_no-1]
+    costumer_mail = data.Mail[costumer_no-1]
+    costumer_phone = data.Phone[costumer_no-1]
+    return costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone
+
+
+def student_info(filename,student_no):
+    data = pd.read_excel(r'./data/excel/'+filename, sheet_name = 'Students' ).astype(str)
+    student_name = data.Name[student_no-1]
+    student_mail = data.Mail[student_no-1]
+    student_phone = data.Phone[student_no-1]
+    return student_name, student_mail, student_phone

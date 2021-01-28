@@ -5,7 +5,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.styles import StyleSheet1, ParagraphStyle, getSampleStyleSheet
 from reportlab.platypus import Paragraph
 from reportlab.lib.pagesizes import A4
-from monthly_hours_register import*
+
 
 
 def create_invoice(filename_excel_regnskap,b_name, b_adress,b_postcode, b_mail, b_phone, b_orgno, b_accountno,
