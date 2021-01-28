@@ -25,4 +25,4 @@ data =  {'Navn':name, 'Timer':hours, 'Dato': date, 'Kunde': costumer}
 
 addrow_df = rw.addRowDataFrame(data,df_header)
 print(addrow_df)
-#addrow_ex = rw.writeToBodyExcel(addrow_df,path,sheetname)
+addrow_ex = rw.writeToBodyExcel(addrow_df,path,sheetname)
