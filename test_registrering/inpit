@@ -1,6 +1,0 @@
-hours = GetInput("Antal_timer: ", df, float)
-costumer = GetInput("Kunde: ", df, str)
-date = datetime.datetime.now()
-date = date.strftime("%d.%m.%Y")
-
-data =  {'Navn': name, 'Timer': hours, 'Kunde': costumer, 'Dato':date}
