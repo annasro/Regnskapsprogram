@@ -2,10 +2,10 @@ import datetime
 import pandas as pd
 from lib import write_files as rw
 from lib.get_input import GetInput
-from lib import let_user_pick as pick
+
 
 path = './excel/test.xlsx'
-sheetname = 'timeregisrering'
+sheetname = 'hour_register'
 header = ['Navn','Timer', 'Dato', 'Kunde']
 
 #make DataFrame
