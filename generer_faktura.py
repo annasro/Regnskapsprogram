@@ -28,14 +28,14 @@ duedate_str  = str(duedate.day) + "." + str(duedate.month) + "." + str(duedate.y
 
 
 #invoice recipient
-comp_name, comp_adress, comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno = company_info(filename)
+comp_name, comp_adress, comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno = CompanyInfo(filename)
 
 #invoice sender
 costumer_no  = 1
-costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no = costumer_info(filename,costumer_no)
+costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no = CostumerInfo(filename,costumer_no)
 print(costumer_no)
 #create invoice
-create_invoice(filename,
+CreateInvoice(filename,
                comp_name, comp_adress,comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno,
                costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no,
                invoice_no,
