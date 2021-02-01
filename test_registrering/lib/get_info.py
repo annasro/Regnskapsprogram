@@ -19,7 +19,8 @@ def costumer_info(filename,costumer_no):
     costumer_postcode = data.Postalcode[costumer_no-1]
     costumer_mail = data.Mail[costumer_no-1]
     costumer_phone = data.Phone[costumer_no-1]
-    return costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone
+    costumer_no = costumer_no
+    return costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no
 
 
 def student_info(filename,student_no):
