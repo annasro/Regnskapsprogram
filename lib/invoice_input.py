@@ -117,7 +117,7 @@ def CreateInvoice(filename,
 
 
     for i in range(0,no_df):
-        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = invoice_input(i,df,filename,month)
+        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = InvoiceInput(i,df,filename,month)
         c.setFont(fontH, 10)
         c.drawString(v,y, str(description))
         c.drawString(v1,y,str(quantity))

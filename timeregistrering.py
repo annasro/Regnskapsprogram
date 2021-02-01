@@ -14,9 +14,9 @@ file = rw.writeToHeaderExcel(df_header,path,sheetname) #write header to excelfil
 df = pd.read_excel(path)
 
 #input parameters
-name = GetInput("Navn: ", df, str)
-hours = GetInput('Antall timer: ', df, float)
-costumer = GetInput('Kunde: ', df, str)
+name = GetInput("Navn: ", str)
+hours = GetInput('Antall timer: ', float)
+costumer = GetInput('Kunde: ', str)
 d = datetime.datetime.now()
 date = d.strftime("%d.%m.%Y")
 
