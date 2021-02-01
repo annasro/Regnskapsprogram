@@ -8,7 +8,7 @@ from reportlab.lib.pagesizes import A4
 import pandas as pd
 
 
-def create_invoice(filename,
+def CreateInvoice(filename,
                    comp_name, comp_adress,comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno,
                    costumer_name, costumer_adress, costumer_postcode, costumer_mail, costumer_phone, costumer_no,
                    invoice_no,
@@ -184,7 +184,7 @@ def create_invoice(filename,
     c.drawCentredString(midt ,y, comp_name + '  |  Org.nr NO ' + comp_orgno + '  |  ' + comp_mail + '  |  Tlf. ' + comp_phone)
     c.save()
 
-def invoice_input(i,df,filename,month,
+def InvoiceInput(i,df,filename,month,
                            dtype={'Description': str,
                                   'Quantity': float, 'Sum': float,
                                   'Hourly_rate': float, 'Bonus': float,

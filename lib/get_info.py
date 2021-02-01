@@ -1,6 +1,6 @@
 import pandas as pd
 
-def company_info(filename):
+def CompanyInfo(filename):
     data = pd.read_excel(filename, sheet_name = 'Company' ).astype(str)
     comp_name = data.Name[0]
     comp_adress = data.Adress[0]
@@ -12,7 +12,7 @@ def company_info(filename):
     return comp_name, comp_adress, comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno
 
 
-def costumer_info(filename,costumer_no):
+def CostumerInfo(filename,costumer_no):
     data = pd.read_excel(filename, sheet_name = 'Costumers' ).astype(str)
     costumer_name = data.Name[costumer_no-1]
     costumer_adress = data.Adress[costumer_no-1]
@@ -23,7 +23,7 @@ def costumer_info(filename,costumer_no):
     return costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no
 
 
-def student_info(filename,student_no):
+def StudentInfo(filename,student_no):
     data = pd.read_excel(r'./data/excel/'+filename, sheet_name = 'Students' ).astype(str)
     student_name = data.Name[student_no-1]
     student_mail = data.Mail[student_no-1]
