@@ -4,15 +4,17 @@ import pandas
 
 from lib.get_info import *
 
-from lib.layout_invoice import *
+from lib.invoice_input import *
 from lib.get_input import GetInput
 
 date = datetime.datetime.now()
 month = str(date.month)
 year = str(date.year)
 
-dir_invoice = './invoice/'
-filename = './excel/test.xlsx'
+dir_invoice = '../'+ year + '/invoice/'
+print(dir_invoice)
+
+filename = './excel/stray_2021.xlsx'
 
 #filename_accounting ='regnskap'+year+'.xlsx'
 #dir_invoice =  '../'+ str(year)+'/Faktura/'
@@ -31,9 +33,10 @@ duedate_str  = str(duedate.day) + "." + str(duedate.month) + "." + str(duedate.y
 comp_name, comp_adress, comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno = CompanyInfo(filename)
 
 #invoice sender
-costumer_no  = 1
+costumer_no  = GetInput('Costumer no.: ', int)
+
 costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no = CostumerInfo(filename,costumer_no)
-print(costumer_no)
+
 #create invoice
 CreateInvoice(filename,
                comp_name, comp_adress,comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno,
