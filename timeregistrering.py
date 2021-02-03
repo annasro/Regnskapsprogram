@@ -4,9 +4,9 @@ from lib import write_files as rw
 from lib.get_input import GetInput
 
 
-path = './excel/test.xlsx'
+path = './excel/stray_2021.xlsx'
 sheetname = 'hour_register'
-header = ['Navn','Timer', 'Dato', 'Kunde']
+header = ['Name','Hours', 'Date', 'Costumer']
 
 #make DataFrame
 df_header = rw.makeDataFrame(header)  #Dataframe with header only
@@ -21,7 +21,7 @@ d = datetime.datetime.now()
 date = d.strftime("%d.%m.%Y")
 
 
-data =  {'Navn':name, 'Timer':hours, 'Dato': date, 'Kunde': costumer}
+data =  {'Name':name, 'Hours':hours, 'Date': date, 'Costumer': costumer}
 
 addrow_df = rw.addRowDataFrame(data,df_header)
 print(addrow_df)

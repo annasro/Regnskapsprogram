@@ -11,8 +11,10 @@ date = datetime.datetime.now()
 month = str(date.month)
 year = str(date.year)
 
-dir_invoice = './invoice/'
-filename = './excel/test.xlsx'
+dir_invoice = '../'+ year + '/invoice/'
+print(dir_invoice)
+
+filename = './excel/stray_2021.xlsx'
 
 #filename_accounting ='regnskap'+year+'.xlsx'
 #dir_invoice =  '../'+ str(year)+'/Faktura/'
@@ -34,7 +36,7 @@ comp_name, comp_adress, comp_postcode, comp_mail, comp_phone, comp_orgno, comp_a
 costumer_no  = GetInput('Costumer no.: ', int)
 
 costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no = CostumerInfo(filename,costumer_no)
-print(costumer_no)
+
 #create invoice
 CreateInvoice(filename,
                comp_name, comp_adress,comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno,
