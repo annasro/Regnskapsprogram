@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def GetInput(text,df, type_ = None, min_=None, max_= None, range_= None):
+def GetInput(text, type_ = None, min_=None, max_= None, range_= None):
     if min_ is not None and max_ is not None and max_ < min_:
         raise ValueError('min_ must be less or equal to max_.')
     while True:

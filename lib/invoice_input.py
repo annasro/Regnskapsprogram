@@ -8,19 +8,36 @@ from reportlab.lib.pagesizes import A4
 import pandas as pd
 
 
+def InvoiceInput(i,df,filename,month,
+                           dtype={'Description': str,
+                                  'Quantity': float, 'Sum': float,
+                                  'Hourly_rate': float, 'Bonus': float,
+                                  'Netto': float,'MVA': float,
+                                  'MVA_cost': float,}):
+    description = df.Description[i]
+    quantity = df.Quantity[i]
+    hourly_rate = df.Hourly_rate[i]
+    bonus = df.Bonus[i]
+    net_price =  df.Netto[i]
+    VAT_rate =  df.MVA[i]
+    VAT_price =  df.MVA_cost[i]
+    sum = df.Sum[i]
+    total = df.Total[0]
+
+    return description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total
+
+
 def CreateInvoice(filename,
                    comp_name, comp_adress,comp_postcode, comp_mail, comp_phone, comp_orgno, comp_accountno,
                    costumer_name, costumer_adress, costumer_postcode, costumer_mail, costumer_phone, costumer_no,
                    invoice_no,
                    invoicedate, deliverydate, duedate_str,
                    year, month):
-
-
     month = str(int(month) - 1)
     #lage pdf
     #c = canvas.Canvas('../'+year+'/Faktura/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
     #df = pd.read_excel(r'../'+year+'/'+filename, sheet_name = str(month),decimal=",").astype(str)
-    c = canvas.Canvas('./invoice/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
+    c = canvas.Canvas('../'+year+'/invoice/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
     df = pd.read_excel(r'./'+filename, sheet_name = str(month),decimal=",").astype(str)
 
     no_df = df.shape[0]
@@ -117,7 +134,7 @@ def CreateInvoice(filename,
 
 
     for i in range(0,no_df):
-        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = invoice_input(i,df,filename,month)
+        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = InvoiceInput(i,df,filename,month)
         c.setFont(fontH, 10)
         c.drawString(v,y, str(description))
         c.drawString(v1,y,str(quantity))
@@ -183,21 +200,3 @@ def CreateInvoice(filename,
     y -= margin*1.3
     c.drawCentredString(midt ,y, comp_name + '  |  Org.nr NO ' + comp_orgno + '  |  ' + comp_mail + '  |  Tlf. ' + comp_phone)
     c.save()
-
-def InvoiceInput(i,df,filename,month,
-                           dtype={'Description': str,
-                                  'Quantity': float, 'Sum': float,
-                                  'Hourly_rate': float, 'Bonus': float,
-                                  'Netto': float,'MVA': float,
-                                  'MVA_cost': float,}):
-    description = df.Description[i]
-    quantity = df.Quantity[i]
-    hourly_rate = df.Hourly_rate[i]
-    bonus = df.Bonus[i]
-    net_price =  df.Netto[i]
-    VAT_rate =  df.MVA[i]
-    VAT_price =  df.MVA_cost[i]
-    sum = df.Sum[i]
-    total = df.Total[0]
-
-    return description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total

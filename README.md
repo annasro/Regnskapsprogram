@@ -19,3 +19,5 @@ Time registering
 
 5. Velge kunde som skal betale faktura
 6. Lage nytt excelark for hver måned, lettere å sende faktura
+
+7. Hente ut antall timer fra en måned - fra excelarket
