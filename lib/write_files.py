@@ -13,27 +13,33 @@ def addRowDataFrame(data,df):
 
 def writeToHeaderExcel(df,path,sheetname):
     writer = writeToExcel(df,path,sheetname)
-    headerexcel = df.to_excel(writer,sheet_name = sheetname,index=False,header=True) #make header
+    headerexcel = df.to_excel(writer, sheet_name = sheetname, index = False, header = True) #make header
     writer.save()
-    writer.close()
+    
     return headerexcel
 
 def writeToBodyExcel(df,path,sheetname):
     writer = writeToExcel(df,path,sheetname)
     reader = pd.read_excel(path)        #reading excelfile
-    bodyexcel = df.to_excel(writer,sheet_name = sheetname ,index=False,header=False,startrow=len(reader)+1) #add rows
+    bodyexcel = df.to_excel(writer, sheet_name = sheetname,
+                            index=False, header = False,
+                            startrow = len(reader) + 1) #add rows
     writer.save()
-    writer.close()
+    
     return bodyexcel
 
 def writeToExcel(df,path,sheetname):
-    with pd.ExcelWriter(path,engine='openpyxl',mode = 'a') as writer:
-        book = load_workbook(path) #open excelfile
-        writer.book = book                 #workbook
-        writer.sheets = dict((ws.title, ws) for ws in book.worksheets) #copying worksheet
-        return writer
+    book = load_workbook(path)
+    writer = pd.ExcelWriter(path, engine = 'openpyxl', mode = 'a')
+    writer.book = book
+    writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
+    return writer
+ 
+
 
 def writeToCSV(pathEXCEL, pathCSV):
     df_csv = pd.read_excel(pathEXCEL) #copy excelfile and
     file_csv = df_csv.to_csv(pathCSV) #make it a csv file
     return file_csv
+
+ 
