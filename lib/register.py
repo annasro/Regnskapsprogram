@@ -18,6 +18,9 @@ def register ():
     #make dict with the values of the variables
     #make dataframe out of dict
     df_dict = {}
+    df_dict['parameter 1'] = GetInput("{parameter 1}", str)
+    GetInput
+
     for var in header:
         df_dict[var] = pd.DataFrame()
         #df_dict[var] = dr.data.get_data_yahoo(var, start, end)
