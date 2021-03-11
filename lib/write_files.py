@@ -20,12 +20,11 @@ def writeToHeaderExcel(df,path,sheetname):
 
 def writeToBodyExcel(df,path,sheetname):
     writer = writeToExcel(df,path,sheetname)
-    reader = pd.read_excel(path)        #reading excelfile
+    reader = pd.read_excel(path, sheetname)        #reading excelfile
     bodyexcel = df.to_excel(writer, sheet_name = sheetname,
                             index=False, header = False,
                             startrow = len(reader) + 1) #add rows
     writer.save()
-    
     return bodyexcel
 
 def writeToExcel(df,path,sheetname):
