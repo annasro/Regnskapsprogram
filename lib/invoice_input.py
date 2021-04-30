@@ -38,7 +38,7 @@ def CreateInvoice(filename,
     #c = canvas.Canvas('../'+year+'/Faktura/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
     #df = pd.read_excel(r'../'+year+'/'+filename, sheet_name = str(month),decimal=",").astype(str)
     c = canvas.Canvas('../'+year+'/invoice/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
-    df = pd.read_excel(r'./'+filename, sheet_name = str(month),decimal=",").astype(str)
+    df = pd.read_excel(r'./'+filename, sheet_name = str(month)).astype(str)
 
     no_df = df.shape[0]
 
@@ -158,9 +158,9 @@ def CreateInvoice(filename,
     c.drawString(h1,y, str(VAT_price)+',00')
     y -= margin*.4
     c.setFont(fontHB, 10)
-    c.drawString(h,y,'Total:')
+    c.drawString(h,y,'Totalt:')
     c.setFont(fontTR, 10)
-    c.drawString(h1,y,str(total)+',00')
+    c.drawString(h1,y,str(total))
     y -= margin
 
     c.setFont(fontH, 10)
@@ -170,7 +170,7 @@ def CreateInvoice(filename,
     #nederste del av faktura
     y = height - 630
     c.setFont(fontTR, 10)
-    c.drawString(midt,y, str(total)+',00')
+    c.drawString(midt,y, str(total))
     y -= margin*0.4
     c.setFont(fontHB, 10)
     c.drawString(h1,y, str(duedate_str))
@@ -193,7 +193,7 @@ def CreateInvoice(filename,
     y -= margin
 
     c.setFont(fontTR, 10)
-    c.drawString(midt,y,str(total)+',00')
+    c.drawString(midt,y,str(total))
     c.setFont(fontHB, 10)
     c.drawString(h,y,'Kontonummer: ' + str(comp_accountno))
     c.setFont(fontH, 10)
