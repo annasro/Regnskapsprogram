@@ -4,7 +4,7 @@ from lib import write_files as rw
 from lib.get_input import GetInput
 
 
-path = '../2021/excel/stray_2021.xlsx'
+path = '../2021/stray_2021.xlsx'
 sheetname = 'hour_register'
 header = ['Name','Hours', 'Date', 'Costumer']
 
