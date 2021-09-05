@@ -14,7 +14,7 @@ year = str(date.year)
 dir_invoice = '../'+ year + '/invoice/'
 print(dir_invoice)
 
-filename = './excel/stray_2021.xlsx'
+filename = '../'+ year +'/excel/stray_2021.xlsx'
 
 #filename_accounting ='regnskap'+year+'.xlsx'
 #dir_invoice =  '../'+ str(year)+'/Faktura/'

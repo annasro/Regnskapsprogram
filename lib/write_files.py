@@ -36,9 +36,14 @@ def writeToExcel(df,path,sheetname):
  
 
 
-def writeToCSV(pathEXCEL, pathCSV):
-    df_csv = pd.read_excel(pathEXCEL) #copy excelfile and
-    file_csv = df_csv.to_csv(pathCSV) #make it a csv file
-    return file_csv
+def writeToCSV(df, dir, filename):
+    import os
+    
+    if not os.path.exists(dir):
+        os.makedirs(dir)
+
+    f = open(dir+filename,'a+')
+    df.to_csv(dir+filename, mode='a', header=False)
+    f.close()
 
  

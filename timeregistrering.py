@@ -4,13 +4,18 @@ from lib import write_files as rw
 from lib.get_input import GetInput
 
 
-path = './excel/stray_2021.xlsx'
+
+date = datetime.datetime.now()
+month = str(date.month)
+year = str(date.year)
+
+path = '../'+ year +'/excel/stray_2021.xlsx'
 sheetname = 'hour_register'
 header = ['Name','Hours', 'Date', 'Costumer']
 
 #make DataFrame
 df_header = rw.makeDataFrame(header)  #Dataframe with header only
-file = rw.writeToHeaderExcel(df_header,path,sheetname) #write header to excelfile- needs to be before adding rows to dataframe
+#file = rw.writeToHeaderExcel(df_header,path,sheetname) #write header to excelfile- needs to be before adding rows to dataframe
 df = pd.read_excel(path)
 
 #input parameters
