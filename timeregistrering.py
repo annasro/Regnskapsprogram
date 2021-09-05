@@ -4,7 +4,6 @@ from lib import write_files as rw
 from lib.get_input import GetInput
 
 
-
 date = datetime.datetime.now()
 month = str(date.month)
 year = str(date.year)
