@@ -24,7 +24,6 @@ def writeToBodyExcel(df,path,sheetname):
     bodyexcel = df.to_excel(writer, sheet_name = sheetname, 
                             index=False, header = False,
                             startrow = len(reader) + 1) #add rows
-    
     writer.save()
    
     return bodyexcel
