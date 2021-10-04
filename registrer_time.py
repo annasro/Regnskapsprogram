@@ -3,8 +3,8 @@ from lib.lib2 import *
 
 
 sheetname = 'timer'
-filename = 'timer_testfile'
-filename_excel = path + 'testfile'
+filename = 'timer_' + filename
+
 
 hours = AskQuestion('Hvor hvor mange timer underviste du? ', str)
 
@@ -15,7 +15,8 @@ d = datetime.datetime.now()
 date = d.strftime("%d.%m.%Y")
 
 data =  {'Name':[name], 'Hours':[hours], 'Date': [date], 'Kundenummer': [costumer]}
-registrer(path, filename, filename_excel, data, sheetname)
+
+registrer(path, filename, path_excel, data, sheetname)
 
 '''
 #input parameters

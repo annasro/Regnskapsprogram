@@ -2,8 +2,7 @@ from lib.lib1 import *
 from lib.lib2 import *
 
 sheetname = 'kunder'
-filename = 'elever_testfile'
-filename_excel = 'testfile'
+filename = 'kunder_' + filename
 
 name = 'kunde'
 email = AskQuestion('Email: ', str)
@@ -18,4 +17,4 @@ data =  {'Kunde':[name], 'Email':[email], 'Telefonnummer':[phone], 'Adresse':[ad
 for k,v in data.items():
     print(f'{k}: {v}\n')
 
-registrer(path, filename, filename_excel, data, sheetname)
+registrer(path, filename, path_excel, data, sheetname)
