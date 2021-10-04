@@ -1,15 +1,10 @@
-import pandas as pd
-from openpyxl import load_workbook
 
-def makeDataFrame(header):
-    df = pd.DataFrame(columns = header)
-    return df
+from .lib1 import *
+from .get_input import GetInput
+from .str2bool import str2bool
 
-def addRowDataFrame(data,df):
-    #data should be data = {Navn':name,'Belop_eks_mva':amount,'Mvakode': VAT_code,'Konto':b_accountno,'Antall':quantity,'Varenummer':product_no}}
-    newRow = pd.Series(data)
-    df = df.append(newRow, ignore_index = True)
-    return df
+
+
 
 def writeToHeaderExcel(df,path,sheetname):
     writer = writeToExcel(path)
@@ -34,6 +29,18 @@ def writeToExcel(path):
     writer.book = book
     writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
     return writer
+
+def saveToExcel(df, sheetname, path_excel):
+    SaveToExcel = GetInput('Vil du lagre data til excel [y/n]? ', str)
+    
+    if str2bool(SaveToExcel) == True:
+        header = list(df.columns)
+        df_header = pd.DataFrame(columns = header)
+        writeToHeaderExcel(df_header, path_excel + '.xlsx',sheetname) #write header to excelfile- needs to be before adding rows to dataframe
+        writeToBodyExcel(df, path_excel + '.xlsx',sheetname)
+
+
+
  
 
  
