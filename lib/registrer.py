@@ -7,17 +7,13 @@ from lib.write_files import writeToBodyExcel, writeToHeaderExcel, writeToExcel
 
 def registrer(path:str, filename:str, filename_excel:str,  data: dict, sheetname):
     
-    #if not os.path.exists(path):
-        #os.makedirs(path)
+    if not os.path.exists(path):
+        os.makedirs(path)
 
     df = pd.DataFrame.from_dict(data)
-
-    #if file does not exsist, create csv file from df and use keys from data dict as header
-    if not os.path.isfile(filename + '.csv'):
-        df.to_csv(path + filename + '.csv', header = data.items(), mode = 'a+', index = False)
-    else: # else it exists so append without writing the header
-        df.to_csv(path + filename + '.csv', mode = 'a+', header=False, index = False)
-
+    
+    with open( path + filename + '.csv', 'a') as f:
+        df.to_csv(f, mode='a', header=f.tell()==0)
     
     #ask terminal to save file to excel: 
     SaveToExcel = GetInput('Vil du lagre data til excel [y/n]? ', str)
