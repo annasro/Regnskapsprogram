@@ -12,38 +12,29 @@ def addRowDataFrame(data,df):
     return df
 
 def writeToHeaderExcel(df,path,sheetname):
-    writer = writeToExcel(df,path,sheetname)
+    writer = writeToExcel(path)
     headerexcel = df.to_excel(writer, sheet_name = sheetname, index = False, header = True) #make header
     writer.save()
     
     return headerexcel
 
 def writeToBodyExcel(df,path,sheetname):
-    writer = writeToExcel(df,path,sheetname)
+    writer = writeToExcel(path)
     reader = pd.read_excel(path, sheetname)        #reading excelfile
-    bodyexcel = df.to_excel(writer, sheet_name = sheetname,
+    bodyexcel = df.to_excel(writer, sheet_name = sheetname, 
                             index=False, header = False,
                             startrow = len(reader) + 1) #add rows
+    
     writer.save()
+   
     return bodyexcel
 
-def writeToExcel(df,path,sheetname):
+def writeToExcel(path):
     book = load_workbook(path)
-    writer = pd.ExcelWriter(path, engine = 'openpyxl', mode = 'a')
+    writer = pd.ExcelWriter(path, engine = 'openpyxl', mode ='r+')
     writer.book = book
     writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
     return writer
  
-
-
-def writeToCSV(df, dir, filename):
-    import os
-    
-    if not os.path.exists(dir):
-        os.makedirs(dir)
-
-    f = open(dir+filename,'a+')
-    df.to_csv(dir+filename, mode='a', header=False)
-    f.close()
 
  

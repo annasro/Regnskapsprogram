@@ -1,5 +1,4 @@
-import pandas as pd
-
+from lib.str2bool import str2bool
 
 def GetInput(text, type_ = None, min_=None, max_= None, range_= None):
     if min_ is not None and max_ is not None and max_ < min_:
@@ -26,5 +25,21 @@ def GetInput(text, type_ = None, min_=None, max_= None, range_= None):
                     print(template.formate(*range_))
                 else:
                      print(template.format(" or ".join((", ".join(map(str,range_[:-1])), str(range_[-1])))))
+    
         else:
             return Value
+        
+        
+def  AskQuestion(txt, type):
+    while True:
+        try:
+            input = GetInput(txt, type)
+            redo = GetInput("Må du fikse noe? (y/n): ", str)
+            if str2bool(redo) == True:
+                continue 
+            else:
+                break
+            
+        except ValueError:
+            break
+    return input
