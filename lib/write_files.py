@@ -4,20 +4,18 @@ from .get_input import GetInput
 from .str2bool import str2bool
 
 
-
-
-def writeToHeaderExcel(df,path,sheetname):
+def writeToHeaderExcel(df,path,sheetname, index):
     writer = writeToExcel(path)
-    headerexcel = df.to_excel(writer, sheet_name = sheetname, index = False, header = True) #make header
+    headerexcel = df.to_excel(writer, sheet_name = sheetname, index = index, header = True) #make header
     writer.save()
     
     return headerexcel
 
-def writeToBodyExcel(df,path,sheetname):
+def writeToBodyExcel(df,path,sheetname, index):
     writer = writeToExcel(path)
     reader = pd.read_excel(path, sheetname)        #reading excelfile
     bodyexcel = df.to_excel(writer, sheet_name = sheetname, 
-                            index=False, header = False,
+                            index=index, header = False,
                             startrow = len(reader) + 1) #add rows
     writer.save()
    
@@ -30,14 +28,23 @@ def writeToExcel(path):
     writer.sheets = dict((ws.title, ws) for ws in book.worksheets)
     return writer
 
-def saveToExcel(df, sheetname, path_excel):
-    SaveToExcel = GetInput('Vil du lagre data til excel [y/n]? ', str)
-    
-    if str2bool(SaveToExcel) == True:
+def saveToExcel(df, sheetname, path_excel, save = True, index = False):
+    if save == True:
         header = list(df.columns)
         df_header = pd.DataFrame(columns = header)
-        writeToHeaderExcel(df_header, path_excel + '.xlsx',sheetname) #write header to excelfile- needs to be before adding rows to dataframe
-        writeToBodyExcel(df, path_excel + '.xlsx',sheetname)
+        writeToHeaderExcel(df_header, path_excel + '.xlsx',sheetname, index) #write header to excelfile- needs to be before adding rows to dataframe
+        writeToBodyExcel(df, path_excel + '.xlsx',sheetname, index)
+
+    else:
+        
+    
+        SaveToExcel = GetInput('Vil du lagre data til excel [y/n]? ', str)
+    
+        if str2bool(SaveToExcel) == True:
+            header = list(df.columns)
+            df_header = pd.DataFrame(columns = header)
+            writeToHeaderExcel(df_header, path_excel + '.xlsx',sheetname) #write header to excelfile- needs to be before adding rows to dataframe
+            writeToBodyExcel(df, path_excel + '.xlsx',sheetname)
 
 
 
