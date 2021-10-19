@@ -1,7 +1,7 @@
 import pandas as pd
 
 def CompanyInfo(filename):
-    data = pd.read_excel(filename, sheet_name = 'Company' ).astype(str)
+    data = pd.read_excel(filename, sheet_name = 'selskap' ).astype(str)
     comp_name = data.Name[0]
     comp_adress = data.Adress[0]
     comp_postcode = data.Postalcode[0]
@@ -13,7 +13,7 @@ def CompanyInfo(filename):
 
 
 def CostumerInfo(filename,costumer_no):
-    data = pd.read_excel(filename, sheet_name = 'Costumers' ).astype(str)
+    data = pd.read_excel(filename, sheet_name = 'kunder' ).astype(str)
     costumer_name = data.Name[costumer_no-1]
     costumer_adress = data.Adress[costumer_no-1]
     costumer_postcode = data.Postalcode[costumer_no-1]
@@ -24,7 +24,7 @@ def CostumerInfo(filename,costumer_no):
 
 
 def StudentInfo(filename,student_no):
-    data = pd.read_excel(r'./data/excel/'+filename, sheet_name = 'Students' ).astype(str)
+    data = pd.read_excel(r'./data/excel/'+filename, sheet_name = 'elever' ).astype(str)
     student_name = data.Name[student_no-1]
     student_mail = data.Mail[student_no-1]
     student_phone = data.Phone[student_no-1]

@@ -136,7 +136,16 @@ def CreateInvoice(filename,
     for i in range(0,no_df):
         description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = InvoiceInput(i,df,filename,month)
         c.setFont(fontH, 10)
-        c.drawString(v,y, str(description))
+        import locale
+        import datetime
+        
+        loc = locale.getlocale()
+        locale.setlocale(locale.LC_ALL, 'nb_NO')
+        date = datetime.datetime.now()
+    
+        month = datetime.date(1900,month,1).strftime('%B')
+
+        c.drawString(v,y, str(description + ' ' + str(month)))
         c.drawString(v1,y,str(quantity))
         c.drawString(v2,y,str(hourly_rate))
         c.drawString(v3,y,str(bonus))
