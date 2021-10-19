@@ -142,8 +142,9 @@ def CreateInvoice(filename,
         loc = locale.getlocale()
         locale.setlocale(locale.LC_ALL, 'nb_NO')
         date = datetime.datetime.now()
+        month = date.month 
     
-        month = datetime.date(1900,month,1).strftime('%B')
+        month = datetime.date(1900,month - 1,1).strftime('%B')
 
         c.drawString(v,y, str(description + ' ' + str(month)))
         c.drawString(v1,y,str(quantity))
