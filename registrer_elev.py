@@ -3,17 +3,18 @@ from lib.lib1 import *
 from lib.get_input import AskQuestion
 from lib.registrer import registrer
 
-path  = './testfolder/'
-filename = 'testfile'
+
+path  = "G:\Min disk\Enkeltpersonsforetak\Regnskap\\2021\excel\\"
+filename = 'stray_2021_new'
+
+path_excel = path + filename
 
 sheetname = 'elever'
-path_excel = path + 'testfile'
-
 filename = 'elever_' + filename 
 
-name = 'elev'
+name = AskQuestion('Navn på elev: ', str)
 email = AskQuestion('Email: ', str)
-phone = AskQuestion('Telefonnummer: ', str)
+phone = AskQuestion('Telefonnummer: ', int)
 
 data =  {'Navn':[name], 'Email':[email], 'Telefonnummer':[phone]}
 

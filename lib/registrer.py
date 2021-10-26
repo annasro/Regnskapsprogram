@@ -3,7 +3,7 @@ from .lib1 import *
 from .write_files import saveToExcel
 
 
-def registrer(path:str, filename:str, filename_excel:str,  data: dict, sheetname):
+def registrer(path:str, filename:str, filename_excel:str,  data: dict, sheetname:str):
     
     if not os.path.exists(path):
         os.makedirs(path)
