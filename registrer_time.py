@@ -16,13 +16,12 @@ name = AskQuestion('Navnet på eleven: ', str)
 hours = AskQuestion('Hvor hvor mange timer underviste du? ', float)
 reisevei = AskQuestion('Hvor lang reisevei i min: ', float)/60
 
-hours += reisevei
 costumer = AskQuestion('Hva er kundenummeret? ', int)
 
 d = datetime.datetime.now()
 date = d.strftime("%Y.%m.%d")
 
-data =  {'Name':[name], 'Hours':[hours], 'Date':[date], 'Kundenummer': [costumer]}
+data =  {'Name':[name], 'Hours':[hours], 'Reisevei':[reisevei] , 'Date':[date], 'Kundenummer': [costumer]}
 registrer(path, filename, path_excel, data, sheetname)
 
 #df_sum = pd.read_csv(path + filename + '.csv')

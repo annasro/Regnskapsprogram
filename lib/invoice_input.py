@@ -22,7 +22,7 @@ def InvoiceInput(i,df,filename,month,
     VAT_rate =  df.MVA[i]
     VAT_price =  df.MVA_cost[i]
     sum = df.Sum[i]
-    total = df.Total[0]
+    total = float(df.Total[0])
 
     return description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total
 
@@ -152,7 +152,8 @@ def CreateInvoice(filename,
         c.drawString(v3,y,str(bonus))
 
         c.drawString(h,y,  str(VAT_rate))
-        c.drawString(h1,y, str(net_price))
+        net_price = float(net_price)
+        c.drawString(h1,y, "%.2f" %net_price)
         y -= margin*.5
 
 
@@ -170,7 +171,7 @@ def CreateInvoice(filename,
     c.setFont(fontHB, 10)
     c.drawString(h,y,'Totalt:')
     c.setFont(fontTR, 10)
-    c.drawString(h1,y,str(total))
+    c.drawString(h1,y,'%0.2f'%total)
     y -= margin
 
     c.setFont(fontH, 10)
@@ -180,7 +181,7 @@ def CreateInvoice(filename,
     #nederste del av faktura
     y = height - 630
     c.setFont(fontTR, 10)
-    c.drawString(midt,y, str(total))
+    c.drawString(midt,y, '%0.2f'%total)
     y -= margin*0.4
     c.setFont(fontHB, 10)
     c.drawString(h1,y, str(duedate_str))
@@ -203,7 +204,7 @@ def CreateInvoice(filename,
     y -= margin
 
     c.setFont(fontTR, 10)
-    c.drawString(midt,y,str(total))
+    c.drawString(midt,y,'%0.2f'%total)
     c.setFont(fontHB, 10)
     c.drawString(h,y,'Kontonummer: ' + str(comp_accountno))
     c.setFont(fontH, 10)
