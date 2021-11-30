@@ -21,3 +21,4 @@ Time registering
 6. Lage nytt excelark for hver måned, lettere å sende faktura
 
 7. Hente ut antall timer fra en måned - fra excelarket
+

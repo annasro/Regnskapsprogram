@@ -33,7 +33,7 @@ def CreateInvoice(filename,
                    invoice_no,
                    invoicedate, deliverydate, duedate_str,
                    year, month):
-    month = str(int(month) - 1)
+    month = str(int(month)-1)
     #lage pdf
     #c = canvas.Canvas('../'+year+'/Faktura/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
     #df = pd.read_excel(r'../'+year+'/'+filename, sheet_name = str(month),decimal=",").astype(str)

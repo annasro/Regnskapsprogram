@@ -20,7 +20,7 @@ filename = '../'+ year +'/excel/stray_2021_new.xlsx'
 #dir_invoice =  '../'+ str(year)+'/Faktura/'
 
 #information needed in invoice
-invoice_no =  len(os.listdir(dir_invoice)) + 1
+invoice_no =  len(os.listdir(dir_invoice))+ 1
 
 #dates
 invoicedate =  str(date.day) + "." + str(date.month) + "." + str(date.year)
