@@ -4,8 +4,11 @@ from lib.get_input import AskQuestion
 from lib.registrer import registrer
 from lib.sum_month import sum_hours_over_month
 
-path  = "G:\Min disk\Enkeltpersonsforetak\Regnskap\\2021\excel\\"
-filename = 'stray_2021_new'
+date = datetime.datetime.today()
+year = str(date.year)
+
+path  = "G:\Min disk\Enkeltpersonsforetak\Regnskap\\"+year+"\excel\\"
+filename = 'stray_' + year
 
 path_excel = path + filename
 sheetname = 'timer'

@@ -8,12 +8,7 @@ from reportlab.lib.pagesizes import A4
 import pandas as pd
 
 
-def InvoiceInput(i,df,filename,month,
-                           dtype={'Description': str,
-                                  'Quantity': float, 'Sum': float,
-                                  'Hourly_rate': float, 'Bonus': float,
-                                  'Netto': float,'MVA': float,
-                                  'MVA_cost': float,}):
+def InvoiceInput(i,df):
     description = df.Description[i]
     quantity = df.Quantity[i]
     hourly_rate = df.Hourly_rate[i]
@@ -32,13 +27,14 @@ def CreateInvoice(filename,
                    costumer_name, costumer_adress, costumer_postcode, costumer_mail, costumer_phone, costumer_no,
                    invoice_no,
                    invoicedate, deliverydate, duedate_str,
-                   year, month):
-    month = str(int(month)-1)
+                   lastYear,lastMonth,
+                   year, month, month_name):
+    
     #lage pdf
     #c = canvas.Canvas('../'+year+'/Faktura/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
     #df = pd.read_excel(r'../'+year+'/'+filename, sheet_name = str(month),decimal=",").astype(str)
     c = canvas.Canvas('../'+year+'/invoice/faktura_' + str(invoice_no)+"_"+ str(invoicedate) + '.pdf')
-    df = pd.read_excel(r'./'+filename, sheet_name = str(month)).astype(str)
+    df = pd.read_excel(r'./'+filename, sheet_name = lastMonth).astype(str)
 
     no_df = df.shape[0]
 
@@ -134,19 +130,10 @@ def CreateInvoice(filename,
 
 
     for i in range(0,no_df):
-        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = InvoiceInput(i,df,filename,month)
+        description, quantity, hourly_rate, bonus, net_price, VAT_rate, VAT_price, sum,total = InvoiceInput(i,df)
         c.setFont(fontH, 10)
-        import locale
-        import datetime
         
-        loc = locale.getlocale()
-        locale.setlocale(locale.LC_ALL, 'nb_NO')
-        date = datetime.datetime.now()
-        month = date.month 
-    
-        month = datetime.date(1900,month - 1,1).strftime('%B')
-
-        c.drawString(v,y, str(description + ' ' + str(month)))
+        c.drawString(v,y, str(description + ' ' + str(month_name)))
         c.drawString(v1,y,str(quantity))
         c.drawString(v2,y,str(hourly_rate))
         c.drawString(v3,y,str(bonus))

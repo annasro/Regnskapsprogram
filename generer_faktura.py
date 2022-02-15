@@ -1,20 +1,35 @@
 import datetime
+import locale
 import os
-import pandas
 
 from lib.get_info import *
-
 from lib.invoice_input import *
 from lib.get_input import GetInput
 
-date = datetime.datetime.now()
+loc = locale.getlocale()
+locale.setlocale(locale.LC_ALL, 'nb_NO')
+
+date = datetime.datetime.today()
+
+day = str(date.day)
 month = str(date.month)
 year = str(date.year)
+
+first = date.replace(day=1)
+lastMonth = first - datetime.timedelta(days=1)
+
+
+lastYear =  (lastMonth.strftime("%Y"))
+lastMonth = (lastMonth.strftime("%m"))
+
+datetime_object = datetime.datetime.strptime(lastMonth, "%m")
+month_name = datetime_object.strftime("%B")
 
 dir_invoice = '../'+ year + '/invoice/'
 print(dir_invoice)
 
-filename = '../'+ year +'/excel/stray_2021_new.xlsx'
+filename = '../'+ year +'/excel/stray_' + year + '.xlsx'
+
 
 #filename_accounting ='regnskap'+year+'.xlsx'
 #dir_invoice =  '../'+ str(year)+'/Faktura/'
@@ -43,4 +58,5 @@ CreateInvoice(filename,
                costumer_name,costumer_adress,costumer_postcode, costumer_mail, costumer_phone, costumer_no,
                invoice_no,
                invoicedate,deliverydate,duedate_str,
-               year, month)
+               lastYear, lastMonth,
+               year, month, month_name)
